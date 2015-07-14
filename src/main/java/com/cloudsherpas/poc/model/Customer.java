@@ -1,8 +1,10 @@
 package com.cloudsherpas.poc.model;
 
+import com.googlecode.objectify.annotation.Entity;
 import org.joda.time.DateTime;
 import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public class Customer {
     @Id
     private String emailAddress;

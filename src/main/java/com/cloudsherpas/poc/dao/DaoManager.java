@@ -16,7 +16,7 @@ public class DaoManager {
 
     private DaoManager(){}
 
-    public DaoManager getInstance() {
+    public static DaoManager getInstance() {
         if (self == null){
             self = new DaoManager();
         }
@@ -30,7 +30,7 @@ public class DaoManager {
         ObjectifyService.register(Product.class);
     }
 
-    private Objectify getObjectify(){
+    public Objectify getObjectify(){
         return ObjectifyService.ofy();
     }
 
