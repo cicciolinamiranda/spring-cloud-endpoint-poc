@@ -1,10 +1,21 @@
 package com.cloudsherpas.poc.api;
 
 import com.cloudsherpas.poc.dto.CustomerDTO;
+import com.cloudsherpas.poc.model.Customer;
 import com.cloudsherpas.poc.service.CustomerService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.List;
 
@@ -12,11 +23,17 @@ import java.util.List;
         name = "poc",
         version = "1"
 )
+@Component
 public class CustomerResource {
+
+    @Autowired
+    @Qualifier("customerService")
+    @Lazy
     private CustomerService customerService;
 
     public CustomerResource() {
-        customerService = new CustomerService();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        ObjectifyService.begin();
     }
 
     @ApiMethod(
@@ -46,14 +63,14 @@ public class CustomerResource {
         customerService.addCustomer(customerDTO);
     }
 
-    @ApiMethod(
-            name = "addCustomers",
-            path = "customers",
-            httpMethod = ApiMethod.HttpMethod.POST
-    )
-    public void addCustomers(final List<CustomerDTO> customerDTOList) {
-        customerService.addCustomers(customerDTOList);
-    }
+//    @ApiMethod(
+//            name = "addCustomers",
+//            path = "customers",
+//            httpMethod = ApiMethod.HttpMethod.POST
+//    )
+//    public void addCustomers(final List<CustomerDTO> customerDTOList) {
+//        customerService.addCustomers(customerDTOList);
+//    }
 
     @ApiMethod(
             name = "updateCustomer",
@@ -64,21 +81,21 @@ public class CustomerResource {
         customerService.updateCustomer(customerDTO);
     }
 
-    @ApiMethod(
-            name = "updateAllCustomers",
-            path = "customers/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateCustomers(final List<CustomerDTO> customerDTOList) {
-        customerService.updateAllCustomers(customerDTOList);
-    }
+//    @ApiMethod(
+//            name = "updateAllCustomers",
+//            path = "customers/all",
+//            httpMethod = ApiMethod.HttpMethod.PUT
+//    )
+//    public void updateCustomers(final List<CustomerDTO> customerDTOList) {
+//        customerService.updateAllCustomers(customerDTOList);
+//    }
 
     @ApiMethod(
             name = "deleteCustomer",
-            path = "customer",
+            path = "customer/{key}",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteCustomer(final String key) {
+    public void deleteCustomer(@Named("key") final String key) {
         customerService.deleteCustomer(key);
     }
 }

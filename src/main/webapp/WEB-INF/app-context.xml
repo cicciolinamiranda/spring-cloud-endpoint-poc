@@ -9,5 +9,9 @@
     <bean id="orderDao" class="com.cloudsherpas.poc.dao.impl.OrderDaoImpl"  />
     <bean id="productDao" class="com.cloudsherpas.poc.dao.impl.ProductDaoImpl" />
 
+    <bean id="customerService" class="com.cloudsherpas.poc.service.CustomerService" />
+    <bean id="orderService" class="com.cloudsherpas.poc.service.OrderService" />
+    <bean id="productService" class="com.cloudsherpas.poc.service.ProductService" />
+
     <context:annotation-config />
 </beans>

@@ -5,6 +5,9 @@ import com.cloudsherpas.poc.service.OrderService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -13,11 +16,11 @@ import java.util.List;
         version = "1"
 )
 public class OrderResource {
-    private OrderService orderService;
 
-    public OrderResource() {
-        orderService = new OrderService();
-    }
+    @Autowired
+    @Qualifier("orderService")
+    @Lazy
+    private OrderService orderService;
 
     @ApiMethod(
             name = "getOrder",
@@ -46,14 +49,14 @@ public class OrderResource {
         orderService.addOrder(orderDTO);
     }
 
-    @ApiMethod(
-            name = "addOrders",
-            path = "orders",
-            httpMethod = ApiMethod.HttpMethod.POST
-    )
-    public void addOrders(final List<OrderDTO> orderDTOList) {
-        orderService.addOrders(orderDTOList);
-    }
+//    @ApiMethod(
+//            name = "addOrders",
+//            path = "orders",
+//            httpMethod = ApiMethod.HttpMethod.POST
+//    )
+//    public void addOrders(final List<OrderDTO> orderDTOList) {
+//        orderService.addOrders(orderDTOList);
+//    }
 
     @ApiMethod(
             name = "updateOrder",
@@ -65,21 +68,21 @@ public class OrderResource {
     }
 
 
-    @ApiMethod(
-            name = "updateAllOrders",
-            path = "orders/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateAllOrders(final List<OrderDTO> orderDTOList) {
-        orderService.updateAllOrders(orderDTOList);
-    }
+//    @ApiMethod(
+//            name = "updateAllOrders",
+//            path = "orders/all",
+//            httpMethod = ApiMethod.HttpMethod.PUT
+//    )
+//    public void updateAllOrders(final List<OrderDTO> orderDTOList) {
+//        orderService.updateAllOrders(orderDTOList);
+//    }
 
     @ApiMethod(
             name = "deleteOrder",
-            path = "order",
+            path = "order/{key}",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteOrder(final String key) {
+    public void deleteOrder(@Named("key") final String key) {
         orderService.deleteOrder(key);
     }
 }
