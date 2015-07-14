@@ -1,10 +1,12 @@
 package com.cloudsherpas.poc.model;
 
 import org.joda.time.DateTime;
+import com.googlecode.objectify.annotation.Id;
 
 public class Customer {
-    private String name;
+    @Id
     private String emailAddress;
+    private String name;
     private DateTime dateCreated;
 
     public String getName() {
@@ -16,7 +18,7 @@ public class Customer {
     }
 
     public String getEmailAddress() {
-       return emailAddress;
+        return emailAddress;
     }
 
     public void setEmailAddress() {
