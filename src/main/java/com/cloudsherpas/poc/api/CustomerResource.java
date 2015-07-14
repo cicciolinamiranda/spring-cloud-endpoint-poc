@@ -30,7 +30,7 @@ public class CustomerResource {
 
     @ApiMethod(
             name = "getAllCustomers",
-            path = "customer/all",
+            path = "customers/all",
             httpMethod = ApiMethod.HttpMethod.GET
     )
     public List<CustomerDTO> getAllCustomers() {
@@ -48,7 +48,7 @@ public class CustomerResource {
 
     @ApiMethod(
             name = "addCustomers",
-            path = "customer/all",
+            path = "customers",
             httpMethod = ApiMethod.HttpMethod.POST
     )
     public void addCustomers(final List<CustomerDTO> customerDTOList) {
