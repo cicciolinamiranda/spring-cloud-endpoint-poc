@@ -27,7 +27,7 @@ public class CustomerService {
         modelMapper = new ModelMapper();
     }
 
-    public CustomerDTO getCustomerByKey(final String key) {
+    public CustomerDTO getCustomer(final String key) {
         Customer customer =  customerDao.get(key);
 
         return modelMapper.map(customer, CustomerDTO.class);
