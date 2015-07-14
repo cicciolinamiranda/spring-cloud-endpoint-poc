@@ -11,7 +11,7 @@ public class Order {
     private String id;
     @Parent
     private Key<Customer> owner;
-    private String productName;
+    private String productId;
     private int noOfItems;
 
     public String getId() {
@@ -30,12 +30,12 @@ public class Order {
         this.owner = owner;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getProductId() {
+        return productId;
     }
 
     public void setProductName() {
-        this.productName = productName;
+        this.productId = productId;
     }
 
     public int getNoOfItems() {
