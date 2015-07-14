@@ -5,16 +5,25 @@ import com.cloudsherpas.poc.dao.impl.CustomerDaoImpl;
 import com.cloudsherpas.poc.dto.CustomerDTO;
 import com.cloudsherpas.poc.model.Customer;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CustomerService {
+
+    @Autowired()
+    @Qualifier("customerDao")
+    @Lazy
     private CustomerDao customerDao;
+
     private ModelMapper modelMapper;
 
     public CustomerService() {
-        customerDao = new CustomerDaoImpl();
         modelMapper = new ModelMapper();
     }
 
@@ -65,5 +74,10 @@ public class CustomerService {
 
     public void deleteCustomer(final String key) {
         customerDao.delete(key);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDao = " + customerDao;
     }
 }

@@ -9,18 +9,32 @@ import com.cloudsherpas.poc.model.Order;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.VoidWork;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class OrderService {
+
+    @Autowired
+    @Qualifier("orderDao")
+    @Lazy
     private OrderDao orderDao;
+
+    @Autowired
+    @Qualifier("productDao")
+    @Lazy
     private ProductDao productDao;
+
     private ModelMapper modelMapper;
+
     private Objectify objectify;
 
     public OrderService() {
-        orderDao = new OrderDaoImpl();
         modelMapper = new ModelMapper();
         objectify = DaoManager.getInstance().getObjectify();
     }

@@ -5,12 +5,22 @@ import com.cloudsherpas.poc.dao.impl.ProductDaoImpl;
 import com.cloudsherpas.poc.dto.ProductDTO;
 import com.cloudsherpas.poc.model.Product;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ProductService {
+
+    @Autowired
+    @Qualifier("productDao")
+    @Lazy
     private ProductDao productDao;
+
     private ModelMapper modelMapper;
 
     public ProductService() {
