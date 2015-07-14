@@ -1,8 +1,20 @@
 package com.cloudsherpas.poc.model;
 
+import com.googlecode.objectify.annotation.Id;
+
 public class Product {
+    @Id
+    private String id;
     private String name;
     private int stock;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

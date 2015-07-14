@@ -11,6 +11,5 @@ public interface BaseDao<E> {
     void update(E entity);
     void updateAll(List<E> entities);
     void delete(String key);
-    void deleteAll(List<String> keys);
 
 }

@@ -40,9 +40,4 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
     public void delete(String key) {
 
     }
-
-    @Override
-    public void deleteAll(List<String> keys) {
-
-    }
 }
