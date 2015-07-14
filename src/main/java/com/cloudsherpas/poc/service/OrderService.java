@@ -1,9 +1,13 @@
 package com.cloudsherpas.poc.service;
 
+import com.cloudsherpas.poc.dao.DaoManager;
 import com.cloudsherpas.poc.dao.OrderDao;
+import com.cloudsherpas.poc.dao.ProductDao;
 import com.cloudsherpas.poc.dao.impl.OrderDaoImpl;
 import com.cloudsherpas.poc.dto.OrderDTO;
 import com.cloudsherpas.poc.model.Order;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.VoidWork;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -11,11 +15,14 @@ import java.util.List;
 
 public class OrderService {
     private OrderDao orderDao;
+    private ProductDao productDao;
     private ModelMapper modelMapper;
+    private Objectify objectify;
 
     public OrderService() {
         orderDao = new OrderDaoImpl();
         modelMapper = new ModelMapper();
+        objectify = DaoManager.getInstance().getObjectify();
     }
 
     public OrderDTO getOrder(final String key) {
@@ -36,7 +43,13 @@ public class OrderService {
     }
 
     public void addOrder(final OrderDTO orderDTO) {
-        orderDao.add(modelMapper.map(orderDTO, Order.class));
+        objectify.transact(new VoidWork() {
+            @Override
+            public void vrun() {
+                orderDao.add(modelMapper.map(orderDTO, Order.class));
+                productDao.decreaseStock(orderDTO.getProductId(), orderDTO.getNoOfItems());
+            }
+        });
     }
 
     public void addOrders(final List<OrderDTO> orderDTOList) {
@@ -64,6 +77,14 @@ public class OrderService {
     }
 
     public void deleteOrder(final String key) {
-        orderDao.delete(key);
+        final Order order = orderDao.get(key);
+
+        objectify.transact(new VoidWork() {
+            @Override
+            public void vrun() {
+                orderDao.delete(key);
+                productDao.increaseStock(order.getProductId(), order.getNoOfItems());
+            }
+        });
     }
 }
