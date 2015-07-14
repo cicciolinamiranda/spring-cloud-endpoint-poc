@@ -26,9 +26,11 @@ public class DaoManager {
     }
 
     private static void registerEntities() {
-        ObjectifyService.register(Customer.class);
-        ObjectifyService.register(Order.class);
-        ObjectifyService.register(Product.class);
+        ObjectifyService.begin();
+
+        ObjectifyService.factory().register(Customer.class);
+        ObjectifyService.factory().register(Order.class);
+        ObjectifyService.factory().register(Product.class);
     }
 
     public Objectify getObjectify() {

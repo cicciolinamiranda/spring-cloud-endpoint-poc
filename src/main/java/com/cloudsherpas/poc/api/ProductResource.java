@@ -5,6 +5,9 @@ import com.cloudsherpas.poc.service.ProductService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -13,11 +16,11 @@ import java.util.List;
         version = "1"
 )
 public class ProductResource {
-    private ProductService productService;
 
-    public ProductResource() {
-        productService = new ProductService();
-    }
+    @Autowired
+    @Qualifier("productService")
+    @Lazy
+    private ProductService productService;
 
     @ApiMethod(
             name = "getProduct",
@@ -46,14 +49,14 @@ public class ProductResource {
         productService.addProduct(productDTO);
     }
 
-    @ApiMethod(
-            name = "addProducts",
-            path = "products",
-            httpMethod = ApiMethod.HttpMethod.POST
-    )
-    public void addProducts(final List<ProductDTO> productDTOList) {
-        productService.addProducts(productDTOList);
-    }
+//    @ApiMethod(
+//            name = "addProducts",
+//            path = "products",
+//            httpMethod = ApiMethod.HttpMethod.POST
+//    )
+//    public void addProducts(final List<ProductDTO> productDTOList) {
+//        productService.addProducts(productDTOList);
+//    }
 
     @ApiMethod(
             name = "updateProduct",
@@ -65,14 +68,14 @@ public class ProductResource {
     }
 
 
-    @ApiMethod(
-            name = "updateAllProducts",
-            path = "products/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateAllProducts(final List<ProductDTO> productDTOList) {
-        productService.updateAllProducts(productDTOList);
-    }
+//    @ApiMethod(
+//            name = "updateAllProducts",
+//            path = "products/all",
+//            httpMethod = ApiMethod.HttpMethod.PUT
+//    )
+//    public void updateAllProducts(final List<ProductDTO> productDTOList) {
+//        productService.updateAllProducts(productDTOList);
+//    }
 
 
     @ApiMethod(
@@ -80,7 +83,7 @@ public class ProductResource {
             path = "product",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteProduct(final String key) {
+    public void deleteProduct(@Named("key") final String key) {
        productService.deleteProduct(key);
     }
 }
