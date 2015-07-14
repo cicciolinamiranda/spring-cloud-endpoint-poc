@@ -14,27 +14,24 @@ public class DaoManager {
         registerEntities();
     }
 
-    private DaoManager(){}
+    private DaoManager() {
+    }
 
     public DaoManager getInstance() {
-        if (self == null){
+        if (self == null) {
             self = new DaoManager();
         }
 
         return self;
     }
 
-    private static void registerEntities(){
+    private static void registerEntities() {
         ObjectifyService.register(Customer.class);
         ObjectifyService.register(Order.class);
         ObjectifyService.register(Product.class);
     }
 
-    private Objectify getObjectify(){
+    private Objectify getObjectify() {
         return ObjectifyService.ofy();
     }
-
-
-
-
 }

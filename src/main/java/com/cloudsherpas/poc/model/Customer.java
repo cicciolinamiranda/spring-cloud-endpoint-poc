@@ -21,7 +21,7 @@ public class Customer {
         return emailAddress;
     }
 
-    public void setEmailAddress() {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
