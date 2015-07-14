@@ -6,12 +6,12 @@ import com.cloudsherpas.poc.model.Product;
 public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao {
 
     @Override
-    public void increaseStock() {
+    public void increaseStock(int quantity) {
 
     }
 
     @Override
-    public void decreaseStock() {
+    public void decreaseStock(int quantity) {
 
     }
 }
