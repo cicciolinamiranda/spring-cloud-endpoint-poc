@@ -3,9 +3,18 @@ package com.cloudsherpas.poc.dto;
 import org.joda.time.DateTime;
 
 public class CustomerDTO {
+    private String id;
     private String name;
     private String emailAddress;
     private DateTime dateCreated;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -16,10 +25,10 @@ public class CustomerDTO {
     }
 
     public String getEmailAddress() {
-       return emailAddress;
+        return emailAddress;
     }
 
-    public void setEmailAddress() {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
