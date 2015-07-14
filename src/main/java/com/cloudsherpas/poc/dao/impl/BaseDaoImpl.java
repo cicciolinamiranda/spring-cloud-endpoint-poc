@@ -5,9 +5,11 @@ import com.cloudsherpas.poc.dao.DaoManager;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
     private static final DaoManager DAO_MANAGER = DaoManager.getInstance();
