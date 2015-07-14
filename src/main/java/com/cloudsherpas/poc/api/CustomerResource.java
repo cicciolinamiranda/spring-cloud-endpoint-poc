@@ -1,16 +1,20 @@
 package com.cloudsherpas.poc.api;
 
 import com.cloudsherpas.poc.dto.CustomerDTO;
+import com.cloudsherpas.poc.model.Customer;
 import com.cloudsherpas.poc.service.CustomerService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.List;
@@ -19,12 +23,18 @@ import java.util.List;
         name = "poc",
         version = "1"
 )
+@Component
 public class CustomerResource {
 
     @Autowired
     @Qualifier("customerService")
     @Lazy
     private CustomerService customerService;
+
+    public CustomerResource() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        ObjectifyService.begin();
+    }
 
     @ApiMethod(
             name = "getCustomer",
