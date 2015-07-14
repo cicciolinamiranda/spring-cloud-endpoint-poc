@@ -4,7 +4,7 @@ import com.cloudsherpas.poc.model.Product;
 
 public interface ProductDao extends BaseDao<Product> {
 
-    void increaseStock(int quantity);
+    void increaseStock(String key, int quantity);
 
-    void decreaseStock(int quantity);
+    void decreaseStock(String key, int quantity);
 }

@@ -2,19 +2,19 @@ package com.cloudsherpas.poc.dao;
 
 import java.util.List;
 
-public interface BaseDao<E> {
+public interface BaseDao<T> {
 
-    E get(String key);
+    T get(String key);
 
-    List<E> getAll();
+    List<T> getAll();
 
-    void add(E entity);
+    void add(T entity);
 
-    void addAll(List<E> entities);
+    void addAll(List<T> entities);
 
-    void update(E entity);
+    void update(T entity);
 
-    void updateAll(List<E> entities);
+    void updateAll(List<T> entities);
 
     void delete(String key);
 
