@@ -36,8 +36,4 @@ public class DaoManager {
     public Objectify getObjectify() {
         return ObjectifyService.ofy();
     }
-
-
-
-
 }

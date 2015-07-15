@@ -1,7 +1,6 @@
 package com.cloudsherpas.poc.service;
 
 import com.cloudsherpas.poc.dao.CustomerDao;
-import com.cloudsherpas.poc.dao.impl.CustomerDaoImpl;
 import com.cloudsherpas.poc.dto.CustomerDTO;
 import com.cloudsherpas.poc.model.Customer;
 import org.modelmapper.ModelMapper;

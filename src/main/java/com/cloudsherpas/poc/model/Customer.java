@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class Customer {
+
     @Id
     private String emailAddress;
     private String name;
