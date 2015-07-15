@@ -3,6 +3,7 @@ package com.cloudsherpas.poc.dto;
 import org.joda.time.DateTime;
 
 public class CustomerDTO {
+
     private String name;
     private String emailAddress;
     private DateTime dateCreated;

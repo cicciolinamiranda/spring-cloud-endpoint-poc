@@ -16,7 +16,6 @@ public class OrderDaoImpl extends BaseDaoImpl<Order> implements OrderDao {
     @Override
     public List<Order> getAll() {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        List<Order> orders = ofy.load().type(Order.class).list();
-        return orders;
+        return ofy.load().type(Order.class).list();
     }
 }

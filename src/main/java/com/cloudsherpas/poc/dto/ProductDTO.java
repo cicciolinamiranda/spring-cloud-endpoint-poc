@@ -1,6 +1,7 @@
 package com.cloudsherpas.poc.dto;
 
 public class ProductDTO {
+
     private String id;
     private String name;
     private int stock;
