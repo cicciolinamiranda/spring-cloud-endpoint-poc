@@ -2,6 +2,8 @@ package com.cloudsherpas.poc.api;
 
 import java.util.List;
 
+import com.cloudsherpas.poc.util.JsonConversionUtility;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -50,14 +52,18 @@ public class CustomerResource {
         customerService.addCustomer(customerDTO);
     }
 
-//    @ApiMethod(
-//            name = "addCustomers",
-//            path = "customers",
-//            httpMethod = ApiMethod.HttpMethod.POST
-//    )
-//    public void addCustomers(final List<CustomerDTO> customerDTOList) {
-//        customerService.addCustomers(customerDTOList);
-//    }
+    @ApiMethod(
+            name = "addCustomers",
+            path = "customers",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void addCustomers(final String requestJson) {
+        final List<CustomerDTO> customerDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
+                new TypeReference<List<CustomerDTO>>() {
+                });
+
+        customerService.addCustomers(customerDTOList);
+    }
 
     @ApiMethod(
             name = "updateCustomer",
@@ -68,14 +74,18 @@ public class CustomerResource {
         customerService.updateCustomer(customerDTO);
     }
 
-//    @ApiMethod(
-//            name = "updateAllCustomers",
-//            path = "customers/all",
-//            httpMethod = ApiMethod.HttpMethod.PUT
-//    )
-//    public void updateCustomers(final List<CustomerDTO> customerDTOList) {
-//        customerService.updateAllCustomers(customerDTOList);
-//    }
+    @ApiMethod(
+            name = "updateAllCustomers",
+            path = "customers/all",
+            httpMethod = ApiMethod.HttpMethod.PUT
+    )
+    public void updateCustomers(final String requestJson) {
+        final List<CustomerDTO> customerDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
+                new TypeReference<List<CustomerDTO>>() {
+                });
+
+        customerService.updateAllCustomers(customerDTOList);
+    }
 
     @ApiMethod(
             name = "deleteCustomer",
