@@ -16,8 +16,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao {
     @Override
     public List<Product> getAll() {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        final List<Product> products = ofy.load().type(Product.class).list();
-        return products;
+        return ofy.load().type(Product.class).list();
     }
 
     @Override

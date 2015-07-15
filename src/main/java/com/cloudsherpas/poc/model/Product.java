@@ -5,6 +5,7 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class Product {
+
     @Id
     private String id;
     private String name;
