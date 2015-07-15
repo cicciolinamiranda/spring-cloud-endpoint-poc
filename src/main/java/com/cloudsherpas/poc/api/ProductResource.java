@@ -34,7 +34,7 @@ public class ProductResource {
     @ApiMethod(
             name = "getAllProducts",
             path = "products/all",
-            httpMethod = ApiMethod.HttpMethod.POST
+            httpMethod = ApiMethod.HttpMethod.GET
     )
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
