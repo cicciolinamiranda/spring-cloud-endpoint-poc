@@ -15,10 +15,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     private static final DaoManager DAO_MANAGER = DaoManager.getInstance();
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get(String key) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        final T entity = (T) ofy.load().key(Key.key(KeyFactory.stringToKey(key))).now();
-        return entity;
+        return (T) ofy.load().key(Key.key(KeyFactory.stringToKey(key))).now();
     }
 
     @Override
@@ -53,5 +53,4 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         final Objectify ofy = DAO_MANAGER.getObjectify();
         ofy.delete().key(Key.key(KeyFactory.stringToKey(key)));
     }
-
 }

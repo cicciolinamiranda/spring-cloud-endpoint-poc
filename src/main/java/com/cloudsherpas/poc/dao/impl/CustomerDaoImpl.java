@@ -16,7 +16,6 @@ public class CustomerDaoImpl extends BaseDaoImpl<Customer> implements CustomerDa
     @Override
     public List<Customer> getAll() {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        List<Customer> customers = ofy.load().type(Customer.class).list();
-        return customers;
+        return ofy.load().type(Customer.class).list();
     }
 }
