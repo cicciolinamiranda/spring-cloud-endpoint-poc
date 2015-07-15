@@ -2,9 +2,12 @@ package com.cloudsherpas.poc.api;
 
 import com.cloudsherpas.poc.dto.OrderDTO;
 import com.cloudsherpas.poc.service.OrderService;
+import com.cloudsherpas.poc.util.JsonConversionUtility;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import com.google.appengine.repackaged.com.google.api.client.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -49,14 +52,18 @@ public class OrderResource {
         orderService.addOrder(orderDTO);
     }
 
-//    @ApiMethod(
-//            name = "addOrders",
-//            path = "orders",
-//            httpMethod = ApiMethod.HttpMethod.POST
-//    )
-//    public void addOrders(final List<OrderDTO> orderDTOList) {
-//        orderService.addOrders(orderDTOList);
-//    }
+    @ApiMethod(
+            name = "addOrders",
+            path = "orders",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void addOrders(final String requestJson) {
+        final List<OrderDTO> orderDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
+                new TypeReference<List<OrderDTO>>() {
+                });
+
+        orderService.addOrders(orderDTOList);
+    }
 
     @ApiMethod(
             name = "updateOrder",
@@ -67,15 +74,18 @@ public class OrderResource {
         orderService.updateOrder(orderDTO);
     }
 
+    @ApiMethod(
+            name = "updateAllOrders",
+            path = "orders/all",
+            httpMethod = ApiMethod.HttpMethod.PUT
+    )
+    public void updateAllOrders(final String requestJson) {
+        final List<OrderDTO> orderDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
+                new TypeReference<List<OrderDTO>>() {
+                });
 
-//    @ApiMethod(
-//            name = "updateAllOrders",
-//            path = "orders/all",
-//            httpMethod = ApiMethod.HttpMethod.PUT
-//    )
-//    public void updateAllOrders(final List<OrderDTO> orderDTOList) {
-//        orderService.updateAllOrders(orderDTOList);
-//    }
+        orderService.updateAllOrders(orderDTOList);
+    }
 
     @ApiMethod(
             name = "deleteOrder",
