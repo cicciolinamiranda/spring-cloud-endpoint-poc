@@ -11,7 +11,6 @@ import com.cloudsherpas.poc.service.CustomerService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
-import com.googlecode.objectify.ObjectifyService;
 
 @Api(
         name = "poc",
@@ -23,10 +22,6 @@ public class CustomerResource {
     @Qualifier("customerService")
     @Lazy
     private CustomerService customerService;
-
-    public CustomerResource() {
-        ObjectifyService.begin();
-    }
 
     @ApiMethod(
             name = "getCustomer",
