@@ -5,6 +5,7 @@ import com.cloudsherpas.poc.model.Order;
 import com.cloudsherpas.poc.model.Product;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.impl.translate.opt.joda.JodaTimeTranslators;
 
 public class DaoManager {
 
@@ -27,6 +28,8 @@ public class DaoManager {
 
     private static void registerEntities() {
         ObjectifyService.begin();
+
+        JodaTimeTranslators.add(ObjectifyService.factory());
 
         ObjectifyService.factory().register(Customer.class);
         ObjectifyService.factory().register(Order.class);

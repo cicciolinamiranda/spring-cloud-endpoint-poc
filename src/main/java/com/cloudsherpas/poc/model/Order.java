@@ -9,17 +9,17 @@ import com.googlecode.objectify.annotation.Parent;
 public class Order {
 
     @Id
-    private String id;
+    private Long id;
     @Parent
     private Key<Customer> owner;
     private String productId;
     private int noOfItems;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

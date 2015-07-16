@@ -1,5 +1,9 @@
 package com.cloudsherpas.poc.dto;
 
+import com.cloudsherpas.poc.util.JodaDateTimeDeserializer;
+import com.cloudsherpas.poc.util.JodaDateTimeSerializer;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.annotate.JsonDeserialize;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.joda.time.DateTime;
 
 public class CustomerDTO {
@@ -24,10 +28,12 @@ public class CustomerDTO {
         this.emailAddress = emailAddress;
     }
 
+    @JsonDeserialize(using= JodaDateTimeDeserializer.class)
     public DateTime getDateCreated() {
         return dateCreated;
     }
 
+    @JsonSerialize(using= JodaDateTimeSerializer.class)
     public void setDateCreated(DateTime dateCreated) {
         this.dateCreated = dateCreated;
     }

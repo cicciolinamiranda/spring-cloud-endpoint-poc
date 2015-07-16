@@ -2,6 +2,8 @@ package com.cloudsherpas.poc.api;
 
 import java.util.List;
 
+import com.cloudsherpas.poc.util.GenericEndpointErrorResponse;
+import com.google.api.server.spi.response.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -28,8 +30,15 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public CustomerDTO getCustomer(@Named("customerKey") final String key) {
-        return customerService.getCustomer(key);
+    public CustomerDTO getCustomer(@Named("customerKey") final String key) throws NotFoundException {
+
+        final CustomerDTO customer = customerService.getCustomer(key);
+
+        if (customer == null) {
+            GenericEndpointErrorResponse.entityNotFound();
+        }
+
+        return customer;
     }
 
     @ApiMethod(

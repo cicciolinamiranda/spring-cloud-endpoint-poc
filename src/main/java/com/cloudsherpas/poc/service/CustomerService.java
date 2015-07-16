@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class CustomerService {
 
     @Autowired()
@@ -27,9 +26,15 @@ public class CustomerService {
     }
 
     public CustomerDTO getCustomer(final String key) {
+        CustomerDTO result = null;
+
         Customer customer =  customerDao.get(key);
 
-        return modelMapper.map(customer, CustomerDTO.class);
+        if (customer != null){
+            modelMapper.map(customer, CustomerDTO.class);
+        }
+
+        return result;
     }
 
     public List<CustomerDTO> getAllCustomers() {
@@ -73,10 +78,5 @@ public class CustomerService {
 
     public void deleteCustomer(final String key) {
         customerDao.delete(key);
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerDao = " + customerDao;
     }
 }

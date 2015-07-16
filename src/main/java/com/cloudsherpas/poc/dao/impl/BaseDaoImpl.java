@@ -2,28 +2,31 @@ package com.cloudsherpas.poc.dao.impl;
 
 import com.cloudsherpas.poc.dao.BaseDao;
 import com.cloudsherpas.poc.dao.DaoManager;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
-    private static final DaoManager DAO_MANAGER = DaoManager.getInstance();
+    private Class<T> entityClass;
+
+    private final DaoManager DAO_MANAGER = DaoManager.getInstance();
+
+    public BaseDaoImpl(final Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
 
     @Override
-    @SuppressWarnings("unchecked")
     public T get(String key) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        return (T) ofy.load().key(Key.key(KeyFactory.stringToKey(key))).now();
+        return ofy.load().key(Key.create(entityClass, key)).now();
     }
 
     @Override
     public List<T> getAll() {
-        return null;
+        final Objectify ofy = DAO_MANAGER.getObjectify();
+        return ofy.load().type(entityClass).list();
     }
 
     @Override
@@ -51,6 +54,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public void delete(String key) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        ofy.delete().key(Key.key(KeyFactory.stringToKey(key)));
+        ofy.delete().key(Key.create(entityClass, key));
     }
 }
