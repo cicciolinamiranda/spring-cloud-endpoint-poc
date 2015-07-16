@@ -1,14 +1,11 @@
 package com.cloudsherpas.poc.api;
 
 import com.cloudsherpas.poc.dto.ProductDTO;
-import com.cloudsherpas.poc.model.Product;
+import com.cloudsherpas.poc.dto.ProductListDTO;
 import com.cloudsherpas.poc.service.ProductService;
-import com.cloudsherpas.poc.util.JsonConversionUtility;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
-import com.google.appengine.repackaged.com.google.api.client.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -58,12 +55,8 @@ public class ProductResource {
             path = "products",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public void addProducts(final String requestJson) {
-        final List<ProductDTO> productDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
-                new TypeReference<List<ProductDTO>>() {
-                });
-
-        productService.addProducts(productDTOList);
+    public void addProducts(final ProductListDTO productList) {
+        productService.addProducts(productList.getItems());
     }
 
     @ApiMethod(
@@ -80,12 +73,8 @@ public class ProductResource {
             path = "products/all",
             httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public void updateAllProducts(final String requestJson) {
-        final List<ProductDTO> productDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
-                new TypeReference<List<ProductDTO>>() {
-                });
-
-        productService.updateAllProducts(productDTOList);
+    public void updateAllProducts(final ProductListDTO productList) {
+        productService.updateAllProducts(productList.getItems());
     }
 
     @ApiMethod(
