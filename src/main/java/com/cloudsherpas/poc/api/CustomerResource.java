@@ -1,18 +1,19 @@
 package com.cloudsherpas.poc.api;
 
-import java.util.List;
-
+import com.cloudsherpas.poc.dto.CustomerDTO;
+import com.cloudsherpas.poc.service.CustomerService;
+import com.cloudsherpas.poc.util.GenericEndpointErrorResponse;
 import com.cloudsherpas.poc.util.JsonConversionUtility;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.response.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
-import com.cloudsherpas.poc.dto.CustomerDTO;
-import com.cloudsherpas.poc.service.CustomerService;
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.Named;
+import java.util.List;
 
 @Api(
         name = "poc",
@@ -30,8 +31,15 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public CustomerDTO getCustomer(@Named("customerKey") final String key) {
-        return customerService.getCustomer(key);
+    public CustomerDTO getCustomer(@Named("customerKey") final String key) throws NotFoundException {
+
+        final CustomerDTO customer = customerService.getCustomer(key);
+
+        if (customer == null) {
+            GenericEndpointErrorResponse.entityNotFound();
+        }
+
+        return customer;
     }
 
     @ApiMethod(
