@@ -1,10 +1,9 @@
 package com.cloudsherpas.poc.api;
 
 import com.cloudsherpas.poc.dto.CustomerDTO;
+import com.cloudsherpas.poc.dto.CustomerListDTO;
 import com.cloudsherpas.poc.service.CustomerService;
 import com.cloudsherpas.poc.util.GenericEndpointErrorResponse;
-import com.cloudsherpas.poc.util.JsonConversionUtility;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
@@ -65,12 +64,8 @@ public class CustomerResource {
             path = "customers",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public void addCustomers(final String requestJson) {
-        final List<CustomerDTO> customerDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
-                new TypeReference<List<CustomerDTO>>() {
-                });
-
-        customerService.addCustomers(customerDTOList);
+    public void addCustomers(final CustomerListDTO customerList) {
+        customerService.addCustomers(customerList.getItems());
     }
 
     @ApiMethod(
@@ -87,12 +82,8 @@ public class CustomerResource {
             path = "customers/all",
             httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public void updateCustomers(final String requestJson) {
-        final List<CustomerDTO> customerDTOList = JsonConversionUtility.convertJsonToObject(requestJson,
-                new TypeReference<List<CustomerDTO>>() {
-                });
-
-        customerService.updateAllCustomers(customerDTOList);
+    public void updateCustomers(final CustomerListDTO customerList) {
+        customerService.updateAllCustomers(customerList.getItems());
     }
 
     @ApiMethod(

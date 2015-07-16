@@ -1,7 +1,6 @@
 package com.cloudsherpas.poc.util;
 
 import com.google.appengine.repackaged.org.codehaus.jackson.JsonGenerator;
-import com.google.appengine.repackaged.org.codehaus.jackson.JsonProcessingException;
 import com.google.appengine.repackaged.org.codehaus.jackson.map.JsonSerializer;
 import com.google.appengine.repackaged.org.codehaus.jackson.map.SerializerProvider;
 import org.joda.time.DateTime;
@@ -15,7 +14,7 @@ public class JodaDateTimeSerializer extends JsonSerializer<DateTime> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("dd-MM-yyyy");
 
     @Override
-    public void serialize(DateTime dateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+    public void serialize(DateTime dateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeString(FORMATTER.print(dateTime));
     }
 }
