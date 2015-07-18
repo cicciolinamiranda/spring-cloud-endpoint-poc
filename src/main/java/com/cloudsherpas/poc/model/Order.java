@@ -12,7 +12,7 @@ public class Order {
     private Long id;
     @Parent
     private Key<Customer> owner;
-    private String productId;
+    private Long productId;
     private int noOfItems;
 
     public Long getId() {
@@ -31,11 +31,11 @@ public class Order {
         this.owner = owner;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductName() {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

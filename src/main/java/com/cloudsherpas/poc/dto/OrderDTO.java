@@ -3,7 +3,7 @@ package com.cloudsherpas.poc.dto;
 public class OrderDTO {
 
     private Long id;
-    private String productId;
+    private Long productId;
     private int noOfItems;
 
     public Long getId() {
@@ -14,11 +14,11 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

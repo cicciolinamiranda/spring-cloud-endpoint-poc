@@ -2,7 +2,6 @@ package com.cloudsherpas.poc.dao.impl;
 
 import com.cloudsherpas.poc.dao.BaseDao;
 import com.cloudsherpas.poc.dao.DaoManager;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 
 import java.util.List;
@@ -18,9 +17,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public T get(String key) {
+    public T get(final Long key) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        return ofy.load().key(Key.create(entityClass, key)).now();
+        return ofy.load().type(entityClass).id(key).now();
     }
 
     @Override
@@ -30,30 +29,30 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public void add(T entity) {
+    public Long add(final T entity) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        ofy.save().entity(entity);
+        return ofy.save().entity(entity).now().getId();
     }
 
     @Override
-    public void addAll(List<T> entities) {
+    public void addAll(final List<T> entities) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
         ofy.save().entities(entities);
     }
 
     @Override
-    public void update(T entity) {
+    public void update(final T entity) {
         add(entity);
     }
 
     @Override
-    public void updateAll(List<T> entities) {
+    public void updateAll(final List<T> entities) {
         addAll(entities);
     }
 
     @Override
-    public void delete(String key) {
+    public void delete(final Long key) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        ofy.delete().key(Key.create(entityClass, key));
+        ofy.delete().type(entityClass).id(key).now();
     }
 }

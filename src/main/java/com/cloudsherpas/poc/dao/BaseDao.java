@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface BaseDao<T> {
 
-    T get(String key);
+    T get(Long key);
 
     List<T> getAll();
 
-    void add(T entity);
+    Long add(T entity);
 
     void addAll(List<T> entities);
 
@@ -16,5 +16,5 @@ public interface BaseDao<T> {
 
     void updateAll(List<T> entities);
 
-    void delete(String key);
+    void delete(Long key);
 }

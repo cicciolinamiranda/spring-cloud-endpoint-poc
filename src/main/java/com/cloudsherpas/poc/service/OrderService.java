@@ -38,7 +38,7 @@ public class OrderService {
         objectify = DaoManager.getInstance().getObjectify();
     }
 
-    public OrderDTO getOrder(final String key) {
+    public OrderDTO getOrder(final Long key) {
         Order order = orderDao.get(key);
 
         return modelMapper.map(order, OrderDTO.class);
@@ -89,7 +89,7 @@ public class OrderService {
         orderDao.updateAll(orderList);
     }
 
-    public void deleteOrder(final String key) {
+    public void deleteOrder(final Long key) {
         final Order order = orderDao.get(key);
 
         objectify.transact(new VoidWork() {

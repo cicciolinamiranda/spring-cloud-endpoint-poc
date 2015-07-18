@@ -8,9 +8,18 @@ import org.joda.time.DateTime;
 
 public class CustomerDTO {
 
+    private Long id;
     private String name;
     private String emailAddress;
     private DateTime dateCreated;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

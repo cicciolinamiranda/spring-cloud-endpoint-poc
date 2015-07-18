@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(
         name = "poc",
@@ -30,7 +32,7 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public CustomerDTO getCustomer(@Named("customerKey") final String key) throws NotFoundException {
+    public CustomerDTO getCustomer(@Named("customerKey") final Long key) throws NotFoundException {
 
         final CustomerDTO customer = customerService.getCustomer(key);
 
@@ -55,8 +57,15 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public void addCustomer(final CustomerDTO customerDTO) {
-        customerService.addCustomer(customerDTO);
+    public Map<String, Long> addCustomer(final CustomerDTO customerDTO) {
+        final Long key = customerService.addCustomer(customerDTO);
+        final Map<String, Long> result = new HashMap<>();
+
+        if (key != null){
+            result.put("key", key);
+        }
+
+        return result;
     }
 
     @ApiMethod(
@@ -88,10 +97,10 @@ public class CustomerResource {
 
     @ApiMethod(
             name = "deleteCustomer",
-            path = "customer/{key}",
+            path = "customer",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteCustomer(@Named("key") final String key) {
+    public void deleteCustomer(@Named("customerKey") final Long key) {
         customerService.deleteCustomer(key);
     }
 }

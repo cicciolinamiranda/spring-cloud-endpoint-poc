@@ -27,7 +27,7 @@ public class ProductService {
         modelMapper = new ModelMapper();
     }
 
-    public ProductDTO getProduct(final String key) {
+    public ProductDTO getProduct(final Long key) {
         Product product = productDao.get(key);
 
         return modelMapper.map(product, ProductDTO.class);
@@ -72,7 +72,7 @@ public class ProductService {
         productDao.updateAll(productList);
     }
 
-    public void deleteProduct(final String key) {
+    public void deleteProduct(final Long key) {
         productDao.delete(key);
     }
 }

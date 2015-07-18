@@ -28,7 +28,7 @@ public class OrderResource {
             path = "order",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public OrderDTO getOrder(@Named("orderKey") final String key) {
+    public OrderDTO getOrder(@Named("orderKey") final Long key) {
         return orderService.getOrder(key);
     }
 
@@ -82,7 +82,7 @@ public class OrderResource {
             path = "order/{key}",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteOrder(@Named("key") final String key) {
+    public void deleteOrder(@Named("key") final Long key) {
         orderService.deleteOrder(key);
     }
 }

@@ -28,7 +28,7 @@ public class ProductResource {
             path = "product",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public ProductDTO getProduct(@Named("productKey") final String key) {
+    public ProductDTO getProduct(@Named("productKey") final Long key) {
         return productService.getProduct(key);
     }
 
@@ -82,7 +82,7 @@ public class ProductResource {
             path = "product",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteProduct(@Named("key") final String key) {
+    public void deleteProduct(@Named("key") final Long key) {
         productService.deleteProduct(key);
     }
 }

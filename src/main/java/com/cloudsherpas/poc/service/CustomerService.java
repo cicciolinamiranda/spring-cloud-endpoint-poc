@@ -25,13 +25,12 @@ public class CustomerService {
         modelMapper = new ModelMapper();
     }
 
-    public CustomerDTO getCustomer(final String key) {
+    public CustomerDTO getCustomer(final Long key) {
         CustomerDTO result = null;
-
         Customer customer =  customerDao.get(key);
 
         if (customer != null){
-            modelMapper.map(customer, CustomerDTO.class);
+            result = modelMapper.map(customer, CustomerDTO.class);
         }
 
         return result;
@@ -48,8 +47,8 @@ public class CustomerService {
         return customerDTOList;
     }
 
-    public void addCustomer(final CustomerDTO customerDTO) {
-        customerDao.add(modelMapper.map(customerDTO, Customer.class));
+    public Long addCustomer(final CustomerDTO customerDTO) {
+        return customerDao.add(modelMapper.map(customerDTO, Customer.class));
     }
 
     public void addCustomers(final List<CustomerDTO> customerDTOList) {
@@ -76,7 +75,7 @@ public class CustomerService {
         customerDao.updateAll(customerList);
     }
 
-    public void deleteCustomer(final String key) {
+    public void deleteCustomer(final Long key) {
         customerDao.delete(key);
     }
 }
