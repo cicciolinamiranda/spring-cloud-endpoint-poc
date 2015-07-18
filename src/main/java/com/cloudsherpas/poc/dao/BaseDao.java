@@ -8,13 +8,9 @@ public interface BaseDao<T> {
 
     List<T> getAll();
 
-    Long add(T entity);
+    Long put(T entity);
 
-    void addAll(List<T> entities);
-
-    void update(T entity);
-
-    void updateAll(List<T> entities);
+    List<T> putAll(List<T> entities);
 
     void delete(Long key);
 }

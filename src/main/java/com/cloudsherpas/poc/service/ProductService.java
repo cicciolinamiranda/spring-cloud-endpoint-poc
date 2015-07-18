@@ -44,32 +44,27 @@ public class ProductService {
         return productDTOList;
     }
 
-    public void addProduct(final ProductDTO productDTO) {
-        productDao.add(modelMapper.map(productDTO, Product.class));
+    public Long addUpdateProduct(final ProductDTO productDTO) {
+        return productDao.put(modelMapper.map(productDTO, Product.class));
     }
 
-    public void addProducts(final List<ProductDTO> productDTOList) {
-        List<Product> productList = new ArrayList<>();
+    public List<ProductDTO> addUpdateProducts(final List<ProductDTO> productDTOList) {
+        final List<Product> productList = new ArrayList<>();
 
         for (ProductDTO productDTO : productDTOList) {
             productList.add(modelMapper.map(productDTO, Product.class));
         }
 
-        productDao.addAll(productList);
-    }
+        final List<Product> tmpList = productDao.putAll(productList);
 
-    public void updateProduct(final ProductDTO productDTO) {
-        productDao.update(modelMapper.map(productDTO, Product.class));
-    }
-
-    public void updateAllProducts(final List<ProductDTO> productDTOList) {
-        List<Product> productList = new ArrayList<>();
-
-        for (ProductDTO productDTO : productDTOList) {
-            productList.add(modelMapper.map(productDTO, Product.class));
+        final List<ProductDTO> productRespList = new ArrayList<>();
+        if (tmpList != null){
+            for (Product tmpCust : tmpList) {
+                productRespList.add(modelMapper.map(tmpCust, ProductDTO.class));
+            }
         }
 
-        productDao.updateAll(productList);
+        return productRespList;
     }
 
     public void deleteProduct(final Long key) {

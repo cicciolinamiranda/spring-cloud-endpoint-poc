@@ -32,7 +32,7 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public CustomerDTO getCustomer(@Named("customerKey") final Long key) throws NotFoundException {
+    public CustomerDTO getCustomer(@Named("id") final Long key) throws NotFoundException {
 
         final CustomerDTO customer = customerService.getCustomer(key);
 
@@ -53,12 +53,12 @@ public class CustomerResource {
     }
 
     @ApiMethod(
-            name = "addCustomer",
+            name = "addUpdateCustomer",
             path = "customer",
-            httpMethod = ApiMethod.HttpMethod.POST
+            httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public Map<String, Long> addCustomer(final CustomerDTO customerDTO) {
-        final Long key = customerService.addCustomer(customerDTO);
+    public Map<String, Long> addUpdateCustomer(final CustomerDTO customerDTO) {
+        final Long key = customerService.addUpdateCustomer(customerDTO);
         final Map<String, Long> result = new HashMap<>();
 
         if (key != null){
@@ -69,30 +69,12 @@ public class CustomerResource {
     }
 
     @ApiMethod(
-            name = "addCustomers",
+            name = "addUpdateCustomers",
             path = "customers",
-            httpMethod = ApiMethod.HttpMethod.POST
-    )
-    public void addCustomers(final CustomerListDTO customerList) {
-        customerService.addCustomers(customerList.getItems());
-    }
-
-    @ApiMethod(
-            name = "updateCustomer",
-            path = "customer",
             httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public void updateCustomer(final CustomerDTO customerDTO) {
-        customerService.updateCustomer(customerDTO);
-    }
-
-    @ApiMethod(
-            name = "updateAllCustomers",
-            path = "customers/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateCustomers(final CustomerListDTO customerList) {
-        customerService.updateAllCustomers(customerList.getItems());
+    public List<CustomerDTO> addCustomers(final CustomerListDTO customerList) {
+        return customerService.addUpdateCustomers(customerList.getItems());
     }
 
     @ApiMethod(
@@ -100,7 +82,7 @@ public class CustomerResource {
             path = "customer",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteCustomer(@Named("customerKey") final Long key) {
+    public void deleteCustomer(@Named("id") final Long key) {
         customerService.deleteCustomer(key);
     }
 }

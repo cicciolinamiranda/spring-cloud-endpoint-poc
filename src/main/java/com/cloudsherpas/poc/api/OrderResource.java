@@ -28,7 +28,7 @@ public class OrderResource {
             path = "order",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public OrderDTO getOrder(@Named("orderKey") final Long key) {
+    public OrderDTO getOrder(@Named("id") final Long key) {
         return orderService.getOrder(key);
     }
 
@@ -42,47 +42,29 @@ public class OrderResource {
     }
 
     @ApiMethod(
-            name = "addOrder",
+            name = "addUpdateOrder",
             path = "order",
-            httpMethod = ApiMethod.HttpMethod.POST
+            httpMethod = ApiMethod.HttpMethod.PUT
     )
     public void addOrder(final OrderDTO orderDTO) {
-        orderService.addOrder(orderDTO);
+        orderService.addUpdateOrder(orderDTO);
     }
 
     @ApiMethod(
-            name = "addOrders",
+            name = "addUpdateOrders",
             path = "orders",
-            httpMethod = ApiMethod.HttpMethod.POST
+            httpMethod = ApiMethod.HttpMethod.PUT
     )
     public void addOrders(final OrderListDTO orderList) {
-        orderService.addOrders(orderList.getItems());
-    }
-
-    @ApiMethod(
-            name = "updateOrder",
-            path = "order",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateOrder(final OrderDTO orderDTO) {
-        orderService.updateOrder(orderDTO);
-    }
-
-    @ApiMethod(
-            name = "updateAllOrders",
-            path = "orders/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateAllOrders(final OrderListDTO orderList) {
-        orderService.updateAllOrders(orderList.getItems());
+        orderService.addUpdateOrders(orderList.getItems());
     }
 
     @ApiMethod(
             name = "deleteOrder",
-            path = "order/{key}",
+            path = "order",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteOrder(@Named("key") final Long key) {
+    public void deleteOrder(@Named("id") final Long key) {
         orderService.deleteOrder(key);
     }
 }

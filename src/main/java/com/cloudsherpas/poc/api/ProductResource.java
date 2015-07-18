@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(
         name = "poc",
@@ -28,7 +30,7 @@ public class ProductResource {
             path = "product",
             httpMethod = ApiMethod.HttpMethod.GET
     )
-    public ProductDTO getProduct(@Named("productKey") final Long key) {
+    public ProductDTO getProduct(@Named("id") final Long key) {
         return productService.getProduct(key);
     }
 
@@ -42,39 +44,28 @@ public class ProductResource {
     }
 
     @ApiMethod(
-            name = "addProduct",
+            name = "addUpdateProduct",
             path = "product",
-            httpMethod = ApiMethod.HttpMethod.POST
+            httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public void addProduct(final ProductDTO productDTO) {
-        productService.addProduct(productDTO);
+    public Map<String, Long> addProduct(final ProductDTO productDTO) {
+        final Long key = productService.addUpdateProduct(productDTO);
+        final Map<String, Long> result = new HashMap<>();
+
+        if (key != null){
+            result.put("key", key);
+        }
+
+        return result;
     }
 
     @ApiMethod(
-            name = "addProducts",
+            name = "addUpdateProducts",
             path = "products",
-            httpMethod = ApiMethod.HttpMethod.POST
-    )
-    public void addProducts(final ProductListDTO productList) {
-        productService.addProducts(productList.getItems());
-    }
-
-    @ApiMethod(
-            name = "updateProduct",
-            path = "product",
             httpMethod = ApiMethod.HttpMethod.PUT
     )
-    public void updateProduct(final ProductDTO productDTO) {
-        productService.updateProduct(productDTO);
-    }
-
-    @ApiMethod(
-            name = "updateAllProducts",
-            path = "products/all",
-            httpMethod = ApiMethod.HttpMethod.PUT
-    )
-    public void updateAllProducts(final ProductListDTO productList) {
-        productService.updateAllProducts(productList.getItems());
+    public List<ProductDTO> addProducts(final ProductListDTO productList) {
+        return productService.addUpdateProducts(productList.getItems());
     }
 
     @ApiMethod(
@@ -82,7 +73,7 @@ public class ProductResource {
             path = "product",
             httpMethod = ApiMethod.HttpMethod.DELETE
     )
-    public void deleteProduct(@Named("key") final Long key) {
+    public void deleteProduct(@Named("id") final Long key) {
         productService.deleteProduct(key);
     }
 }

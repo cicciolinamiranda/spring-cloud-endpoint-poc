@@ -2,9 +2,12 @@ package com.cloudsherpas.poc.dao.impl;
 
 import com.cloudsherpas.poc.dao.BaseDao;
 import com.cloudsherpas.poc.dao.DaoManager;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
@@ -29,25 +32,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public Long add(final T entity) {
+    public Long put(final T entity) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
         return ofy.save().entity(entity).now().getId();
     }
 
     @Override
-    public void addAll(final List<T> entities) {
+    public List<T> putAll(final List<T> entities) {
         final Objectify ofy = DAO_MANAGER.getObjectify();
-        ofy.save().entities(entities);
-    }
+        Map<Key<T>, T> result = ofy.save().entities(entities).now();
 
-    @Override
-    public void update(final T entity) {
-        add(entity);
-    }
-
-    @Override
-    public void updateAll(final List<T> entities) {
-        addAll(entities);
+        return new ArrayList<>(result.values());
     }
 
     @Override

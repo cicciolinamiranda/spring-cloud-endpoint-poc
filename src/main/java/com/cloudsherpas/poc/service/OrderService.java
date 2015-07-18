@@ -55,38 +55,20 @@ public class OrderService {
         return orderDTOList;
     }
 
-    public void addOrder(final OrderDTO orderDTO) {
+    public void addUpdateOrder(final OrderDTO orderDTO) {
         objectify.transact(new VoidWork() {
             @Override
             public void vrun() {
-                orderDao.add(modelMapper.map(orderDTO, Order.class));
+                orderDao.put(modelMapper.map(orderDTO, Order.class));
                 productDao.decreaseStock(orderDTO.getProductId(), orderDTO.getNoOfItems());
             }
         });
     }
 
-    public void addOrders(final List<OrderDTO> orderDTOList) {
-        List<Order> orderList = new ArrayList<>();
-
+    public void addUpdateOrders(final List<OrderDTO> orderDTOList) {
         for (OrderDTO orderDTO : orderDTOList) {
-            orderList.add(modelMapper.map(orderDTO, Order.class));
+            addUpdateOrder(orderDTO);
         }
-
-        orderDao.addAll(orderList);
-    }
-
-    public void updateOrder(final OrderDTO orderDTO) {
-        orderDao.update(modelMapper.map(orderDTO, Order.class));
-    }
-
-    public void updateAllOrders(final List<OrderDTO> orderDTOList) {
-        List<Order> orderList = new ArrayList<>();
-
-        for (OrderDTO orderDTO : orderDTOList) {
-            orderList.add(modelMapper.map(orderDTO, Order.class));
-        }
-
-        orderDao.updateAll(orderList);
     }
 
     public void deleteOrder(final Long key) {

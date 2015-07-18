@@ -47,32 +47,27 @@ public class CustomerService {
         return customerDTOList;
     }
 
-    public Long addCustomer(final CustomerDTO customerDTO) {
-        return customerDao.add(modelMapper.map(customerDTO, Customer.class));
+    public Long addUpdateCustomer(final CustomerDTO customerDTO) {
+        return customerDao.put(modelMapper.map(customerDTO, Customer.class));
     }
 
-    public void addCustomers(final List<CustomerDTO> customerDTOList) {
-        List<Customer> customerList = new ArrayList<>();
+    public List<CustomerDTO> addUpdateCustomers(final List<CustomerDTO> customerDTOList) {
+        final List<Customer> customerList = new ArrayList<>();
 
         for (CustomerDTO customerDTO : customerDTOList) {
             customerList.add(modelMapper.map(customerDTO, Customer.class));
         }
 
-        customerDao.addAll(customerList);
-    }
+        final List<Customer> tmpList = customerDao.putAll(customerList);
 
-    public void updateCustomer(final CustomerDTO customerDTO) {
-        customerDao.update(modelMapper.map(customerDTO, Customer.class));
-    }
-
-    public void updateAllCustomers(final List<CustomerDTO> customerDTOList) {
-        List<Customer> customerList = new ArrayList<>();
-
-        for (CustomerDTO customerDTO : customerDTOList) {
-            customerList.add(modelMapper.map(customerDTO, Customer.class));
+        final List<CustomerDTO> customerRespList = new ArrayList<>();
+        if (tmpList != null){
+            for (Customer tmpCust : tmpList) {
+                customerRespList.add(modelMapper.map(tmpCust, CustomerDTO.class));
+            }
         }
 
-        customerDao.updateAll(customerList);
+        return customerRespList;
     }
 
     public void deleteCustomer(final Long key) {
