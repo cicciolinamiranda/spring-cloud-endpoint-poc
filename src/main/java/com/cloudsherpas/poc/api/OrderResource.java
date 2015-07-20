@@ -14,7 +14,8 @@ import java.util.List;
 
 @Api(
         name = "poc",
-        version = "1"
+        version = "v1",
+        description = "Sample API for Google Cloud Endpoints - Spring Framework POC"
 )
 public class OrderResource {
 
