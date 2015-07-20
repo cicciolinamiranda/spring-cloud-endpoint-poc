@@ -105,4 +105,27 @@ reduce latency during instance creation on App Engine. These are:
 private CustomerService customerService;
 ```
 
+## Accessing the API ##
 
+On your local machine, navigate to the project's root directory, and execute the
+following maven command:
+
+```
+#!bash
+
+mvn appengine:devserver
+```
+
+Or by using the *dev_appserver.sh* shell script (included in the google-appengine-sdk)
+through the following command:
+
+```
+#!bash
+
+dev_appserver.sh target/spring-cloud-endpoint-poc-1.0.SNAPSHOT
+```
+
+The API explorer can be accessed at the following url: [http://localhost:8080/_ah/api/explorer](http://localhost:8080/_ah/api/explorer)
+
+Note: You may need to enable the 'Load unsafe scripts' option on your browser to
+properly load the API.
