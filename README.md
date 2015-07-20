@@ -9,8 +9,6 @@ Alvin Llobrera <alvin.llobrera@cloudsherpas.com>
 
 Jordan Duabe <jordan.duabe@cloudsherpas.com>
 
-Reynald Pader <reynald.pader@cloudsherpas.com>
-
 ## Architecture Layers ##
 ### a. Data Access Object (DAO) Layer ###
 
